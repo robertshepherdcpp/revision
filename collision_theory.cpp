@@ -38,11 +38,11 @@ constexpr auto for_each(std::tuple<Ts...> tup, auto lamda)
 {
     return[&]<std::size_t... indexes>(std::index_sequence<indexes...>)
     {
-        (std::get<indexes>(tup), ...);
+        (lamda(std::get<indexes>(tup)), ...);
     }(std::make_index_sequence<sizeof...(Ts)>{});
 }
 
 int main()
 {
-    for_each(collision_theory, [](auto x) {std::cout << x.data(); });
+    for_each(collision_theory, [](auto x) {std::cout << x.data() << "\n"; });
 }
